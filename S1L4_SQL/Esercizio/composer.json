@@ -1,0 +1,11 @@
+{
+    "name": "emau7/esercizio",
+    "autoload": {
+        "psr-4": {
+            "Emau7\\Esercizio\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
