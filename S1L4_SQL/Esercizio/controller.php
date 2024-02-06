@@ -1,12 +1,22 @@
 <?php 
-    /* session_start();
-    var_dump($_REQUEST);
+    session_start();
+    /*var_dump($_REQUEST);
     $contacts = isset($_SESSION['contacts'])  ?  $_SESSION['contacts'] : [] ; */
 
     require_once 'config.php';
     //var_dump($mysqli);
 
     include_once('function.php');
+
+    if(isset($_REQUEST['action']) && $_REQUEST['action'] === 'login') {
+        echo 'Sono nella sezione login';
+        login($mysqli, $_REQUEST['email'], $_REQUEST['password']);
+        exit(header('Location: http://localhost/S1L4_SQL/Esercizio/'));
+    } else if(isset($_REQUEST['action']) && $_REQUEST['action'] === 'logout') {
+        echo 'Sono nella sezione logout';
+        session_unset();
+        exit(header('Location: http://localhost/S1L4_SQL/Esercizio/'));
+    }
 
     $contacts = [];
     $target_dir = "uploads/";
@@ -31,30 +41,57 @@
         }
     }
 
-    // fare i controlli di validazione dei campi
-    $regexphone = '/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/';
-    preg_match_all($regexphone, htmlspecialchars($_REQUEST['phone']), $matches, PREG_SET_ORDER, 0);
-    $regexemail = '/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/m';
-    preg_match_all($regexemail, htmlspecialchars($_REQUEST['email']), $matchesEmail, PREG_SET_ORDER, 0);
-    $regexPass = '/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/';
-    preg_match_all($regexPass, htmlspecialchars($_REQUEST['password']), $matchesPass, PREG_SET_ORDER, 0);
-
-    $firstname = strlen(trim(htmlspecialchars($_REQUEST['firstname']))) > 2 ? trim(htmlspecialchars($_REQUEST['firstname'])) : exit();
-    $lastname = strlen(trim(htmlspecialchars($_REQUEST['lastname']))) > 2 ? trim(htmlspecialchars($_REQUEST['lastname'])) : exit();
-    $city = strlen(trim(htmlspecialchars($_REQUEST['city']))) > 2 ? trim(htmlspecialchars($_REQUEST['city'])) : exit();
-    $phone = $matches ? htmlspecialchars($_REQUEST['phone']) : exit();
-    $email = $matchesEmail ? htmlspecialchars($_REQUEST['email']) : exit();
-    $pass = $matchesPass ? htmlspecialchars($_REQUEST['password']) : exit();
-    $password = password_hash($pass , PASSWORD_DEFAULT);
+    
 
     if(isset($_REQUEST['action']) && $_REQUEST['action'] === 'delete') {
         removeUser($mysqli, $_REQUEST['id']);
         exit(header('Location: http://localhost/S1L4_SQL/Esercizio/'));
 
+    } else if(isset($_REQUEST['action']) && $_REQUEST['action'] === 'addpost'){
+        $title = strlen(trim(htmlspecialchars($_REQUEST['title']))) > 2 ? trim(htmlspecialchars($_REQUEST['title'])) : exit();
+        $description = strlen(trim(htmlspecialchars($_REQUEST['description']))) > 2 ? trim(htmlspecialchars($_REQUEST['description'])) : exit();
+        addPost($mysqli, $title, $description);
+        exit(header('Location: http://localhost/S1L4_SQL/Esercizio/detail.php'));
     } else if(isset($_REQUEST['action']) && $_REQUEST['action'] === 'update'){
+        // fare i controlli di validazione dei campi
+        $regexphone = '/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/';
+        preg_match_all($regexphone, htmlspecialchars($_REQUEST['phone']), $matches, PREG_SET_ORDER, 0);
+        $regexemail = '/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/m';
+        preg_match_all($regexemail, htmlspecialchars($_REQUEST['email']), $matchesEmail, PREG_SET_ORDER, 0);
+        $regexPass = '/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/';
+        preg_match_all($regexPass, htmlspecialchars($_REQUEST['password']), $matchesPass, PREG_SET_ORDER, 0);
+
+        $firstname = strlen(trim(htmlspecialchars($_REQUEST['firstname']))) > 2 ? trim(htmlspecialchars($_REQUEST['firstname'])) : exit();
+        $lastname = strlen(trim(htmlspecialchars($_REQUEST['lastname']))) > 2 ? trim(htmlspecialchars($_REQUEST['lastname'])) : exit();
+        $city = strlen(trim(htmlspecialchars($_REQUEST['city']))) > 2 ? trim(htmlspecialchars($_REQUEST['city'])) : exit();
+        $phone = $matches ? htmlspecialchars($_REQUEST['phone']) : exit();
+        $email = $matchesEmail ? htmlspecialchars($_REQUEST['email']) : exit();
+        $pass = $matchesPass ? htmlspecialchars($_REQUEST['password']) : exit();
+        $password = password_hash($pass , PASSWORD_DEFAULT);
+
         updateUser($mysqli, $_REQUEST['id'], $firstname, $lastname, $city, $phone, $email, $password, $image);
         exit(header('Location: http://localhost/S1L4_SQL/Esercizio/'));
+    } else {
+
+        // fare i controlli di validazione dei campi
+        $regexphone = '/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/';
+        preg_match_all($regexphone, htmlspecialchars($_REQUEST['phone']), $matches, PREG_SET_ORDER, 0);
+        $regexemail = '/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/m';
+        preg_match_all($regexemail, htmlspecialchars($_REQUEST['email']), $matchesEmail, PREG_SET_ORDER, 0);
+        $regexPass = '/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/';
+        preg_match_all($regexPass, htmlspecialchars($_REQUEST['password']), $matchesPass, PREG_SET_ORDER, 0);
+
+        $firstname = strlen(trim(htmlspecialchars($_REQUEST['firstname']))) > 2 ? trim(htmlspecialchars($_REQUEST['firstname'])) : exit();
+        $lastname = strlen(trim(htmlspecialchars($_REQUEST['lastname']))) > 2 ? trim(htmlspecialchars($_REQUEST['lastname'])) : exit();
+        $city = strlen(trim(htmlspecialchars($_REQUEST['city']))) > 2 ? trim(htmlspecialchars($_REQUEST['city'])) : exit();
+        $phone = $matches ? htmlspecialchars($_REQUEST['phone']) : exit();
+        $email = $matchesEmail ? htmlspecialchars($_REQUEST['email']) : exit();
+        $pass = $matchesPass ? htmlspecialchars($_REQUEST['password']) : exit();
+        $password = password_hash($pass , PASSWORD_DEFAULT);
+
+        createUser($mysqli, $firstname, $lastname, $city, $phone, $email, $password, $image);
     }
+
 
     
    /*  $contact = [
@@ -75,7 +112,7 @@
     // Inserisco dati in una tabella
     
 
-    createUser($mysqli, $firstname, $lastname, $city, $phone, $email, $password, $image);
+    
     
     include_once('mail.php'); 
 

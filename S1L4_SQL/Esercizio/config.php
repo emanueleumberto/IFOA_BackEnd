@@ -30,5 +30,16 @@
     )';
     if(!$mysqli->query($sql)) { die($mysqli->connect_error); }
 
+    // Creo la tabella
+    $sql = 'CREATE TABLE IF NOT EXISTS posts ( 
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        title VARCHAR(255) NOT NULL, 
+        description VARCHAR(255) NOT NULL, 
+        date_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        user_id INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
+    )';
+    if(!$mysqli->query($sql)) { die($mysqli->connect_error); }
+
 
 ?>

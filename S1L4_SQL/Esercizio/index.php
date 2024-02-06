@@ -1,13 +1,17 @@
 <?php
-    /* session_start();
+    session_start();
 
     //print_r($_SESSION);
-    $contacts = [];
+    /* $contacts = [];
     if(isset($_SESSION['contacts'])){
         $contacts = $_SESSION['contacts'];
+    }*/
+
+    if(!isset($_SESSION['userLogin'])){
+        exit(header('Location: http://localhost/S1L4_SQL/Esercizio/login.php'));
     }
     
-    session_write_close(); */
+    session_write_close(); 
 
     require_once 'config.php';
     //var_dump($mysqli);
@@ -15,6 +19,10 @@
     include_once('function.php'); 
     include_once('header.php'); 
     include_once('nav.php'); 
+
+
+
+
 
     $contacts = getAllUser($mysqli);
 
