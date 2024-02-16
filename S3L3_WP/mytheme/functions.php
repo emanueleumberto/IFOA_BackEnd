@@ -8,7 +8,7 @@
 function load_bootstrap() {
     // carica lo stile css di bootstrap
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
-    //wp_enqueue_style('custom-style', get_stylesheet_uri()); // vado a leggere un eventuale file CSS custom
+    wp_enqueue_style('custom-style', get_template_directory_uri() . '/css/custom-style.css'); // vado a leggere un eventuale file CSS custom
 }
 
 # wp_enqueue_script
@@ -24,18 +24,9 @@ function load_bootstrap_scripts() {
 add_action('wp_enqueue_scripts', 'load_bootstrap');
 add_action('wp_enqueue_scripts', 'load_bootstrap_scripts' );
 
-// Funzione che serve per registrare i menu diponibili per il template
-function register_menus() {
-    register_nav_menus(
-        array(
-            'primary-menu' => __( 'Primary Menu' ),
-            'footer-menu'  => __( 'Footer Menu'),
-            'sidebar-menu'  => __( 'Sidebar Menu'),
-        )
-    );
-}
-
-add_action('init', 'register_menus');
+// =======================================
+// Customize Menus
+// =======================================
 
 // Classe predefinita di Wordpress per la gestione diun menu con Bootstrap
 class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_Menu {
@@ -68,4 +59,40 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_Menu {
 
         parent::start_el($output, $item, $depth, $args);
     }
+}
+
+// Funzione che serve per registrare i menu diponibili per il template
+function register_menus() {
+    register_nav_menus(
+        array(
+            'primary-menu' => __( 'Primary Menu' ),
+            'footer-menu'  => __( 'Footer Menu'),
+            'sidebar-menu'  => __( 'Sidebar Menu'),
+        )
+    );
+}
+
+add_action('init', 'register_menus');
+
+// Ability to add classes to wp_nav_menu LI tags
+
+add_filter('nav_menu_css_class', 'add_additional_class_on_li', 1, 3);
+
+function add_additional_class_on_li($classes, $item, $args)
+{
+    if (isset($args->add_li_class))
+    {
+        $classes[] = $args->add_li_class;
+    }
+    return $classes;
+}
+ 
+// A tags
+
+add_filter( 'nav_menu_link_attributes', 'add_link_atts');
+
+function add_link_atts($atts) 
+{ 
+     $atts['class'] = "nav-link"; 
+     return $atts;
 }
