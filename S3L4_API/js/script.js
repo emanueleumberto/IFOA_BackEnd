@@ -1,6 +1,10 @@
 const urlAPI = 'http://localhost/S3L1_WP/wp-json/wp/v2/'
 
-//console.dir(document.location.search)
+//console.dir(document.location)
+
+fetch(urlAPI)
+    .then(response => response.json())
+    .then(json => console.log(json)) 
 
 if(document.location.pathname === '/posts.html') {
     // Get Posts page
@@ -14,19 +18,42 @@ if(document.location.pathname === '/posts.html') {
     if(authorId) {
         fetch(urlAPI+'users/' + authorId)
             .then(response => response.json())
-            .then(json => crateAuthorPage(json))
+            .then(json => createAuthorPage(json))
     }
 } else {
     // Get Home page
-    fetch(urlAPI)
+    fetch(urlAPI+'users/')
     .then(response => response.json())
     .then(json => console.log(json)) 
+
+    //createUser();
 }
 
+// POST User Page
+function createUser() {
+    let userData = {
+        username: 'GiuseppeVerdi', // required
+        email: 'g.verdi@example.com', // required
+        password: 'verdi', // required
 
+        first_name: "Giuseppe",
+        last_name: "Verdi",
+        url: "http://example.com",
+        description: "----",
+    };
+    fetch(urlAPI+'users/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    })
+            .then(response => response.json())
+            .then(json => console.log(json))
+}
 
 // Get Author page
-function crateAuthorPage(author) {
+function createAuthorPage(author) {
     let div = document.querySelector('div.author');
     div.innerHTML = `
                     <div class="card text-center">
@@ -53,10 +80,6 @@ function crateAuthorPage(author) {
     `
 
 }
-
-
-
-
 
 // Get Posts page
 function createPostPage(posts) {

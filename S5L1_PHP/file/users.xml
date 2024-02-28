@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+    <user>
+        <name>Mario</name>
+        <lastname>Rossi</lastname>
+        <city>Roma</city>
+    </user>
+    <user>
+        <name>Giuseppe</name>
+        <lastname>Verdi</lastname>
+        <city>Milano</city>
+    </user>
+    <user>
+        <name>Francesca</name>
+        <lastname>Neri</lastname>
+        <city>Napoli</city>
+    </user>
+<user><name>Antonio</name><lastname>Bianchi</lastname><city>Torino</city></user></users>
