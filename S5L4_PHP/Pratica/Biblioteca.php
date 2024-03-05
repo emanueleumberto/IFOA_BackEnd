@@ -14,10 +14,12 @@ namespace Biblioteca {
 
     abstract class MaterialeBibliotecario implements Prestito {
         private static $contatoreMateriali = 0;
-        private $titolo;
-        private $annoPubblicazione;
+        public $id;
+        public $titolo;
+        public $annoPubblicazione;
 
-        public function __construct($titolo, $annoPubblicazione) {
+        public function __construct($id, $titolo, $annoPubblicazione) {
+            $this->id = $id;
             $this->titolo = $titolo;
             $this->annoPubblicazione = $annoPubblicazione;
             self::$contatoreMateriali++;
@@ -43,12 +45,12 @@ namespace Biblioteca {
     class Libro extends MaterialeBibliotecario {
         // private $titolo;
         // private $annoPubblicazione;
-        private $autore;
+        public $autore;
         
         private static $contatoreLibri = 0;
 
-        public function __construct($titolo, $annoPubblicazione, $autore) {
-            parent::__construct($titolo, $annoPubblicazione);
+        public function __construct($id, $titolo, $annoPubblicazione, $autore) {
+            parent::__construct($id, $titolo, $annoPubblicazione);
             $this->autore = $autore;
             self::$contatoreLibri++;
         }
@@ -75,8 +77,8 @@ namespace Biblioteca {
         
         private static $contatoreDVD = 0;
 
-        public function __construct($titolo, $annoPubblicazione, $regista) {
-            parent::__construct($titolo, $annoPubblicazione);
+        public function __construct($id, $titolo, $annoPubblicazione, $regista) {
+            parent::__construct($id, $titolo, $annoPubblicazione);
             $this->regista = $regista;
             self::$contatoreDVD++;
         }
