@@ -20,4 +20,5 @@ use Illuminate\Support\Facades\Route;
         return view('user', ['obj' => $u]);
     })  -> whereAlpha('name')
         -> whereNumber('age')
-        -> where('email', '/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/m');
+        -> where('email', '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}');
+
