@@ -18,3 +18,26 @@ Route -> Controller -> View -> Template Blade -> Component Blade
 
 // Comando artisan per la creazione di un componente basato su classi laravel
     php artisan make:component Alert
+
+// Comando artisan per la creazione di tabelle nel DB tramite migration
+    php artisan migrate
+
+// Comando artisan per la creazione di una migration laravel
+    php artisan make:migration -h
+    php artisan make:migration create_flights_table
+
+// Comando artisan per la creazione di una Seeder laravel
+    php artisan make:seeder UserSeeder
+
+// Comando artisan per l'esecuzione di uno o tutti i seeder
+    php artisan db:seed -> esegue tutti i seeder presenti nella cartella database/seeders
+    php artisan db:seed --class=UserSeeder  -> esegue il seeder di nome UserSeeder
+
+// Comando artisan per la creazione di Eloquent model
+    php artisan make:model -h -> Help del comando artisan make:model
+    php artisan make:model Post -> Genera una classe Model di nome Post
+    php artisan make:model Post -c -> Genera una classe Model di nome Post e un Controller
+    php artisan make:model Post -m -> Genera una classe Model di nome Post e una Migration
+    php artisan make:model Post -s -> Genera una classe Model di nome Post e un Seeder
+    php artisan make:model Post -f -> Genera una classe Model di nome Post e una Factory
+    php artisan make:model Post -a -> Genera una classe Model di nome Post e tutto il resto
