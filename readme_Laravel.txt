@@ -33,11 +33,15 @@ Route -> Controller -> View -> Template Blade -> Component Blade
     php artisan db:seed -> esegue tutti i seeder presenti nella cartella database/seeders
     php artisan db:seed --class=UserSeeder  -> esegue il seeder di nome UserSeeder
 
+// Comando artisan per la creazione di una Factory laravel
+    php artisan make:factory UserFactory
+
 // Comando artisan per la creazione di Eloquent model
     php artisan make:model -h -> Help del comando artisan make:model
-    php artisan make:model Post -> Genera una classe Model di nome Post
-    php artisan make:model Post -c -> Genera una classe Model di nome Post e un Controller
-    php artisan make:model Post -m -> Genera una classe Model di nome Post e una Migration
-    php artisan make:model Post -s -> Genera una classe Model di nome Post e un Seeder
-    php artisan make:model Post -f -> Genera una classe Model di nome Post e una Factory
-    php artisan make:model Post -a -> Genera una classe Model di nome Post e tutto il resto
+    php artisan make:model Flight -> Genera una classe Model di nome Post
+    php artisan make:model Flight -c -> Genera una classe Model di nome Post e un Controller
+    php artisan make:model Flight -crR -> Genera una classe Model di nome Post e un Controller con i metodi di base per il CRUD
+    php artisan make:model Flight -m -> Genera una classe Model di nome Post e una Migration
+    php artisan make:model Flight -s -> Genera una classe Model di nome Post e un Seeder
+    php artisan make:model Flight -f -> Genera una classe Model di nome Post e una Factory
+    php artisan make:model Flight -a -> Genera una classe Model di nome Post e tutto il resto
