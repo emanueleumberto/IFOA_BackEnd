@@ -1,3 +1,8 @@
+composer create-project laravel/laravel:^10.0 example-app
+composer require laravel/breeze:=1.19 --dev
+php artisan breeze:install
+php artisan breeze:install api
+
 // Ipotetico percorso di una applicazione Laravel
 Route -> Controller -> View -> Template Blade -> Component Blade
 
@@ -45,3 +50,14 @@ Route -> Controller -> View -> Template Blade -> Component Blade
     php artisan make:model Flight -s -> Genera una classe Model di nome Post e un Seeder
     php artisan make:model Flight -f -> Genera una classe Model di nome Post e una Factory
     php artisan make:model Flight -a -> Genera una classe Model di nome Post e tutto il resto
+
+
+// Set Postman script 
+pm.sendRequest({
+    url: 'http://127.0.0.1:8000/sanctum/csrf-cookie',
+    method : 'GET'
+}, function(error, response, {cookies}){
+    if(!error){
+        pm.environment.set('xsrf-token', cookies.get('XSRF-TOKEN'))
+    }
+})

@@ -10,11 +10,11 @@ class Libro extends Model
 {
     use HasFactory;
 
-    public function autores(): HasMany {
+    /* public function autores(): HasMany {
         return $this->hasMany(Autore::class);
     }
 
     public function categorie(): HasMany {
         return $this->hasMany(Categoria::class);
-    }
+    } */
 }

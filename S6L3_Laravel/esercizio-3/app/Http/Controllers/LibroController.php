@@ -10,9 +10,9 @@ class LibroController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $books = Libro::orderBy('id');
+        return view('books', ['books' => $books->get()]);
     }
 
     /**
@@ -36,7 +36,7 @@ class LibroController extends Controller
      */
     public function show(Libro $libro)
     {
-        //
+       return $libro;
     }
 
     /**
