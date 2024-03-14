@@ -13,7 +13,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return Book::paginate(5);
+        return view('books', ['books' => Book::get()]);
     }
 
     /**
@@ -61,6 +61,6 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        return 'sono destroy';
     }
 }
