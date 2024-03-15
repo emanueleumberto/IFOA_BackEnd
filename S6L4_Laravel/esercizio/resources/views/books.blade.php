@@ -13,7 +13,7 @@
     <h1>Books Page</h1>
 
     <button id="del">delete</button>
-    <form method="post" action="{{ route('books', $book->book_id) }}">
+    <form method="post" action="{{ route('resource', $books[0]->book_id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">X</button>

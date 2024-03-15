@@ -6,7 +6,6 @@ php artisan breeze:install api
 // Ipotetico percorso di una applicazione Laravel
 Route -> Controller -> View -> Template Blade -> Component Blade
 
-
 // Comando composer per la creazione di un progetto laravel
     composer create-project laravel/laravel app-laravel-1
 
