@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('/projects', ProjectController::class);
+Route::get('/projects', [ProjectController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('projects');
+
+Route::resource('/activities', ActivityController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

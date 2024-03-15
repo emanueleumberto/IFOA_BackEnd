@@ -13,7 +13,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        //
+        return 'ActivityController index';
     }
 
     /**
@@ -37,7 +37,7 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        return view('activity_detail', ['activity' => $activity]);
     }
 
     /**
