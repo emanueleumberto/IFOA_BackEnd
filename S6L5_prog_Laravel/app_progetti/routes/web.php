@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('/projects', ProjectController::class);
 Route::get('/projects', [ProjectController::class, 'index'])
-    ->middleware(['auth', 'verified'])
+    /* ->middleware(['auth', 'verified']) */
     ->name('projects');
 
 Route::resource('/activities', ActivityController::class)->middleware(['auth', 'verified']);

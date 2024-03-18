@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Activity;
 use App\Http\Requests\StoreActivityRequest;
 use App\Http\Requests\UpdateActivityRequest;
+use Carbon\Carbon;
 
 class ActivityController extends Controller
 {
@@ -19,9 +20,10 @@ class ActivityController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(StoreActivityRequest $request)
     {
-        //
+        //dd($request->id);
+        return view('create_activity', ['project_id' => $request->id]);
     }
 
     /**
@@ -29,7 +31,12 @@ class ActivityController extends Controller
      */
     public function store(StoreActivityRequest $request)
     {
-        //
+        //dd($request);
+        $data = $request->only(['title', 'description', 'priority', 'start_date', 'end_date', 'project_id']);
+        $data['created_at'] = Carbon::now();
+
+        Activity::create($data);
+        return redirect('/projects/'.$request->project_id);
     }
 
     /**
@@ -45,7 +52,8 @@ class ActivityController extends Controller
      */
     public function edit(Activity $activity)
     {
-        //
+        //return $activity;
+        return view('edit_activity', ['activity' => $activity]);
     }
 
     /**
@@ -53,7 +61,15 @@ class ActivityController extends Controller
      */
     public function update(UpdateActivityRequest $request, Activity $activity)
     {
-        //
+        $activity['title'] = $request->title;
+        $activity['description'] = $request->description;
+        $activity['priority'] = $request->priority;
+        $activity['start_date'] = $request->start_date;
+        $activity['end_date'] = $request->end_date;
+        $activity['updated_at'] = Carbon::now();
+
+        $activity->update();
+        return redirect('/projects/'.$request->project_id);
     }
 
     /**
@@ -61,6 +77,7 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
-        //
+        $activity->delete();
+        return redirect('/projects/'.$activity->project_id);
     }
 }

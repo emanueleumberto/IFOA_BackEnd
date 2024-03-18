@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.create {
+    text-decoration: underline !important;
+}
+
+.start {
+    color:green !important;
+}
+
+.complete {
+    font-weight: bold;
+    color: purple;
+
+}
+
+.end {
+    color: red;
+}
+

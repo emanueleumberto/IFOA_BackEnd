@@ -11,6 +11,15 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'type',
+        'language',
+        'state',
+        'user_id'
+    ];
+
     public function activities(): HasMany {
         return $this->hasMany(Activity::class);
     }

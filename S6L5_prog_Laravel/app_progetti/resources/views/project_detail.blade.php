@@ -19,16 +19,26 @@
                             <p class="card-text"><strong>Created: </strong>{{$project->created_at}}</p>
                         </div>
                         <div class="card-body my-3">
+                            <a type="button" href="/activities/create?id={{$project->id}}" class="btn btn-dark d-block text-black">Add Activity</a>
+                        </div>
+                        <div class="card-body my-3">
                             <h2 class="card-title">{{ __('Activities') }}</h2>
                             @if(count($project->activities) > 0)
                                 <ul class="list-group list-group-flush">
                                     @foreach ($project->activities as $activity)
                                         <li class="list-group-item">
                                             {{$activity->title}}
-                                            <span class="float-end">
-                                                <a type="button" class="btn btn-outline-info" href="/activities/{{$activity->id}}">
+                                            <span class="d-flex float-end">
+                                                <a type="button" class="btn btn-outline-info me-2" href="/activities/{{$activity->id}}">
                                                     <i class="bi bi-clipboard-check"></i>
                                                 </a>
+                                                <form method="post" action="/activities/{{$activity->id}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-outline-danger">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </form>
                                             </span>
                                         </li>
                                     @endforeach
@@ -36,6 +46,9 @@
                             @else
                                 <p>I don't have any records!</p>
                             @endif
+                        </div>
+                        <div class="card-body my-3">
+                            <a type="button" class="btn btn-outline-warning d-block" href="/projects/{{$project->id}}/edit">Edit</a>
                         </div>
                         <div class="card-body my-3">
                             <a type="button" class="btn btn-outline-dark d-block" href="{{route('projects')}}">Back</a>

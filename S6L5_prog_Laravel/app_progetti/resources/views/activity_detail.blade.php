@@ -21,7 +21,9 @@
                             <p class="card-text"><strong>End Date: </strong>{{$activity->end_date}}</p>
                             <p class="card-text"><strong>Created: </strong>{{$activity->created_at}}</p>
                         </div>
-
+                        <div class="card-body my-3">
+                            <a type="button" class="btn btn-outline-warning d-block" href="/activities/{{$activity->id}}/edit">Edit</a>
+                        </div>
                         <div class="card-body my-3">
                             <a type="button" class="btn btn-outline-dark d-block" href="{{route('projects')}}">Back</a>
                         </div>

@@ -19,7 +19,7 @@ class ProjectFactory extends Factory
     {
         $types = ['Front-End', 'Back-End'];
         $languages = ['Javascript/Node', 'Laravel/Blade'];
-        $state = ['start', 'complete', 'end'];
+        $state = ['create', 'start', 'complete', 'end'];
         return [
             'name' => fake()->text(30),
             'description' => fake()->text(200),
